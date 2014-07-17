@@ -19,13 +19,16 @@ wss.on('connection', function(ws) {
     fs.readFile(ruta, 'utf8', function (err, data) {
         d3.csv.parse(data);
         csvrow.forEach(data, '/b', function(row, index) {
-            for(i = 0;i<index;i++)
-            {
-                ws.send(''+row);
-                setTimeout(function () {
-                    ws.send(Date.now().toString(), {mask: true});
-                }, 5000);
+
+            if(i==index) {
+                ws.send(row.toString());
+                console.log(row.toString());
+
+
             }
+            setTimeout(function () {
+                i = i + 1;
+            }, 200);
 
 
         });
