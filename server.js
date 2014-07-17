@@ -1,6 +1,5 @@
 
 //!/usr/bin/nodejs
-var d3 = require("d3");
 var fs = require('fs');
 var csvrow = require('csv-string');
 var WebSocketServer = require('ws').Server
@@ -17,24 +16,21 @@ wss.on('connection', function(ws) {
     var ruta = "public/csv/nodes.csv";
     var i =0;
     fs.readFile(ruta, 'utf8', function (err, data) {
-        d3.csv.parse(data);
-        csvrow.forEach(data, '/b', function(row, index) {
-
-            if(i==index) {
-                ws.send(row.toString());
-                console.log(row.toString());
-
-
+    	setTimeout(function(){
+            for(var j=0;j<42;j++){
+                setTimeout(sendRow,500+500*j);
             }
-            setTimeout(function () {
-                i = i + 1;
-            }, 200);
+        },500);
 
-
-        });
-
-    })
-
-
-
+    	function sendRow() {
+            i=i+1;
+            console.log('Llamada a sendRow');
+            csvrow.forEach(data,'/b',function(row,index){
+                if(i==index){
+                    ws.send(row.toString());
+                    console.log(row.toString());
+                }
+            });
+   		}
+    });
 });
