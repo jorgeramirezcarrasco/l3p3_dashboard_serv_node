@@ -9,24 +9,29 @@ var WebSocketServer = require('ws').Server
 var onFunction = function (){
 }
 
-var timeoutFunctinon = function (ws,line,data) {
+var timeoutFunction = function (ws,line,data) {
     console.log("Sending data: "+data[line])
-    ws.send(data[line])
+    ws.send(data[line]);
     line++;
-    setTimeout(timeoutFunctinon.bind(this,ws,line,data),TIME_OUT)
+    if(line==data.length){
+        line=1;
+    }
+    setTimeout(timeoutFunction.bind(this,ws,line,data),TIME_OUT)
 }
 
 wss.on('connection', function(ws) {
     ws.on('message', function(message) {
         console.log('received: %s', message);
+
+        TIME_OUT=message*10;
+
     });
     ws.send('');
-    ws.send(' cpu1 int1 mem1 cpu2 int2 mem2 cpu3 int3 mem3 cpu4 int4 mem4');
+
     var ruta = "public/csv/nodes.csv";
     var i =0;
     fs.readFile(ruta, 'utf8', function (err, data) {
         var data2 = data.split("\n");
-        //console.log(data);
-        setTimeout(timeoutFunctinon.bind(this,ws,0,data2),TIME_OUT);
+        setTimeout(timeoutFunction.bind(this,ws,0,data2),TIME_OUT);
     });
 });
