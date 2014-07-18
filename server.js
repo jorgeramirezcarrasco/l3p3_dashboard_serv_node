@@ -1,12 +1,21 @@
+//#!/usr/bin/nodejs
 
-//!/usr/bin/nodejs
+var TIME_OUT = 500
+
 var fs = require('fs');
-var csvrow = require('csv-string');
 var WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({port: 8080});
+    , wss = new WebSocketServer({port: 8080});
 
 var onFunction = function (){
 }
+
+var timeoutFunctinon = function (ws,line,data) {
+    console.log("Sending data: "+data[line])
+    ws.send(data[line])
+    line++;
+    setTimeout(timeoutFunctinon.bind(this,ws,line,data),TIME_OUT)
+}
+
 wss.on('connection', function(ws) {
     ws.on('message', function(message) {
         console.log('received: %s', message);
@@ -16,21 +25,8 @@ wss.on('connection', function(ws) {
     var ruta = "public/csv/nodes.csv";
     var i =0;
     fs.readFile(ruta, 'utf8', function (err, data) {
-    	setTimeout(function(){
-            for(var j=0;j<42;j++){
-                setTimeout(sendRow,500+500*j);
-            }
-        },500);
-
-    	function sendRow() {
-            i=i+1;
-            console.log('Llamada a sendRow');
-            csvrow.forEach(data,'/b',function(row,index){
-                if(i==index){
-                    ws.send(row.toString());
-                    console.log(row.toString());
-                }
-            });
-   		}
+        var data2 = data.split("\n");
+        console.log(data);
+        setTimeout(timeoutFunctinon.bind(this,ws,0,data2),TIME_OUT);
     });
 });
