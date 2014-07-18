@@ -22,6 +22,9 @@ var timeoutFunction = function (ws,line,data) {
 wss.on('connection', function(ws) {
     ws.on('message', function(message) {
         console.log('received: %s', message);
+
+        TIME_OUT=message*10;
+
     });
     ws.send('');
 
