@@ -1,5 +1,3 @@
-//#!/usr/bin/nodejs
-
 var TIME_OUT = 500
 
 var fs = require('fs');
