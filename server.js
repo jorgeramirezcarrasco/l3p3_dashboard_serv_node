@@ -8,11 +8,15 @@ var WebSocketServer = require('ws').Server
 
 var onFunction = function (){
 }
-
+var ip;
+var recurso;
+var line_csv=1;
 var timeoutFunction = function (ws,line,data) {
-    console.log("Sending data: "+data[line])
+    ip =ws.upgradeReq.connection.remoteAddress;
+    console.log("Sending data to  "+ip+"   :"+data[line]);
     ws.send(data[line]);
     line++;
+    line_csv=line;
     if(line==data.length){
         line=1;
     }
@@ -20,11 +24,25 @@ var timeoutFunction = function (ws,line,data) {
 }
 
 wss.on('connection', function(ws) {
+
+
     ws.on('message', function(message) {
         console.log('received: %s', message);
+        if(!isNaN(parseFloat(message)) && isFinite(message)) {
 
-        TIME_OUT=message*10;
-
+            TIME_OUT = message * 10;
+        }
+        else{
+            if(message=="Color Map request" && recurso!=undefined){
+                ws.send(recurso);
+                console.log("El recurso "+recurso+" ha sido envíado");
+            }
+            else{
+                if(message!="Color Map request"){
+                recurso=message;
+                console.log("El recurso "+recurso+" ha sido almacenado");
+                }
+        }}
     });
     ws.send('');
 
@@ -32,6 +50,7 @@ wss.on('connection', function(ws) {
     var i =0;
     fs.readFile(ruta, 'utf8', function (err, data) {
         var data2 = data.split("\n");
-        setTimeout(timeoutFunction.bind(this,ws,0,data2),TIME_OUT);
+        ws.send(data2[0]);
+        setTimeout(timeoutFunction.bind(this,ws,line_csv,data2),TIME_OUT);
     });
 });
