@@ -37,8 +37,11 @@ wss.on('connection', function(ws) {
                 ws.send(recurso);
                 console.log("El recurso "+recurso+" ha sido envíado");
             }
-            else{recurso=message;
-            console.log("El recurso "+recurso+" ha sido almacenado");
+            else{
+                if(message!="Color Map request"){
+                recurso=message;
+                console.log("El recurso "+recurso+" ha sido almacenado");
+                }
         }}
     });
     ws.send('');
