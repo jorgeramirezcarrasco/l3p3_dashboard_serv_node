@@ -6,10 +6,9 @@ var fs = require('fs');
 var WebSocketServer = require('ws').Server
     , wss = new WebSocketServer({port: 8080});
 
-var onFunction = function (){
-}
 var ip;
 var recurso;
+var websockets=[];
 var line_csv=1;
 var timeoutFunction = function (ws,line,data) {
     ip =ws.upgradeReq.connection.remoteAddress;
@@ -24,6 +23,7 @@ var timeoutFunction = function (ws,line,data) {
 }
 
 wss.on('connection', function(ws) {
+    websockets.push(ws);
     ws.send('');
     var ruta = "public/csv/nodes.csv";
     var i =0;
@@ -32,7 +32,6 @@ wss.on('connection', function(ws) {
         ws.send(data2[0]);
         setTimeout(timeoutFunction.bind(this,ws,line_csv,data2),TIME_OUT);
     });
-
     ws.on('message', function(message) {
         console.log('received: %s', message);
         if(!isNaN(parseFloat(message)) && isFinite(message)) {
@@ -48,6 +47,10 @@ wss.on('connection', function(ws) {
                 if(message!="Color Map request"){
                 recurso=message;
                 console.log("El recurso "+recurso+" ha sido almacenado");
+                 for(i=0;i<websockets.length;i++){
+                     websockets[i].send(recurso);
+                 }
+
                 }
         }}
     });
