@@ -12,7 +12,7 @@ var ip;
 var recurso;
 var line_csv=1;
 var timeoutFunction = function (ws,line,data) {
-    ip = ws.upgradeReq.connection.remoteAddress;
+    ip =ws.upgradeReq.connection.remoteAddress;
     console.log("Sending data to  "+ip+"   :"+data[line]);
     ws.send(data[line]);
     line++;
@@ -51,5 +51,4 @@ wss.on('connection', function(ws) {
                 }
         }}
     });
-
 });
