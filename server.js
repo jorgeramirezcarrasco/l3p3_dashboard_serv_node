@@ -48,6 +48,7 @@ wss.on('connection', function(ws) {
                 if(message!="Color Map request"){
                 recurso=message;
                 console.log("El recurso "+recurso+" ha sido almacenado");
+                ws.send(recurso);
                 }
         }}
     });
