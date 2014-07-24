@@ -1,28 +1,29 @@
+
 l3p3_dashboard_serv_node
 ========================
+
 Jorge Ramírez Carrasco y Federico Fernández Moreno
---------
+* * *
 
 Required Libraries
+--------
 
 The following libraries have been added:
 
-Server: 
+  Server: 
 
-Npm libraries: 
-*fs(“filesystem)  
-*ws(“websocket)
+       (Npm libraries)
+      *fs(“filesystem)  
+      *ws(“websocket)
 
 Client:
 
 In the client have been added these libraries:
 
-*sugar-1.4.1.min.js
-
-*jquery-2.0.3.min.js
-
-*chroma.min.js
-
+      *sugar-1.4.1.min.js
+      *jquery-2.0.3.min.js
+      *chroma.min.js
+      
 Moreover to run graphics is necessary the following code available in his author repository.
 
 *smoothie.js (https://github.com/joewalnes/smoothie.git)
@@ -34,6 +35,7 @@ Moreover to run graphics is necessary the following code available in his author
 * * *
 
 Input format
+--------
 
 Server requires the input data with these charactheristics.
 
@@ -45,6 +47,7 @@ Separation: Backspace.
 
 * * *
 Data adaptation
+--------
 
 The “.csv” files have been adapted to send in each line information from all nodes and with that paint this data simultaneously. In addition the data have been modified and is showed in percentage respect all data of the same resource to visualize the information better. 
 * * *
