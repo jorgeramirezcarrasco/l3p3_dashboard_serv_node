@@ -10,13 +10,13 @@ Required Libraries
 
 The following libraries have been added:
 
-  Server: 
+  **Server**: 
 
       (Npm libraries)
       fs(“filesystem)  
       ws(“websocket)
 
-Client:
+  **Client**:
 
 In the client have been added these libraries:
 
@@ -51,9 +51,9 @@ The “.csv” files have been adapted to send in each line information from all
 Funcionamiento
 --------
 
-Cliente(Port:8000):
+**Cliente(Port:8000)**:
 
--Computer Resources: Al seleccionar su pestaña correspondiente se abre la conexión con el servidor el cual comienza a enviar los datos.
+-*Computer Resources*: Al seleccionar su pestaña correspondiente se abre la conexión con el servidor el cual comienza a enviar los datos.
  
 Se procesan los datos y se pintan las gráficas con sus recursos para cada uno de los nodos que, gracias a las cabeceras, haya identificado.
 
@@ -61,18 +61,18 @@ Por último parte con un TimeOut inicial de 500ms el cual gracias a un slider pu
 
 
 
--Color Map: En la pestaña de Color Map tenemos un dibujo con svg el cual varía de color con respecto los datos que lleguen. 
+-*Color Map*: En la pestaña de Color Map tenemos un dibujo con svg el cual varía de color con respecto los datos que lleguen. 
 
 Para que comience su funcionamiento en la pestaña de Computer Resources seleccionamos mediante su botón asociado el recurso que queremos que Color Map nos muestre.
 Una vez recibe el recurso filtra los datos que tienen esa misma cabecera y los pinta según su valor en el mapa de color.
 
-Servidor(Port:8080): 
+**Servidor(Port:8080)**: 
 
 Gestiona las conexiones de ambas pestañas. 
+
 Cuando se abre la conexión comienza el envío de datos.
+
 Reacciona a mensajes por parte del cliente de la siguiente forma:
-
-
 -Si recibe un número lo interpretará como un nuevo valor para el TimeOut. Este mensaje por parte del cliente lo envía el slider con sus variaciones.
 
 -Si recibe una string de “Color Map Request”(mensaje que se envía al entrar en la pestaña de Color Map). Buscará si hay algún recurso almacenado y lo envía si es así.
