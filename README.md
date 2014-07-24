@@ -73,6 +73,7 @@ Gestiona las conexiones de ambas pestañas.
 Cuando se abre la conexión comienza el envío de datos.
 
 Reacciona a mensajes por parte del cliente de la siguiente forma:
+
 -Si recibe un número lo interpretará como un nuevo valor para el TimeOut. Este mensaje por parte del cliente lo envía el slider con sus variaciones.
 
 -Si recibe una string de “Color Map Request”(mensaje que se envía al entrar en la pestaña de Color Map). Buscará si hay algún recurso almacenado y lo envía si es así.
